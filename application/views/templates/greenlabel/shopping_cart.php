@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <div class="inner-nav">
     <div class="container">
@@ -8,12 +8,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <div class="container" id="shopping-cart">
     <?php
-    if ($cartItems['array'] == null) {
-        ?>
+    if ($cartItems == null) {
+    ?>
         <div class="alert alert-info"><?= lang('no_products_in_cart') ?></div>
-        <?php
+    <?php
     } else {
-        ?>
+    ?>
         <div class="table-responsive">
             <table class="table table-bordered table-products">
                 <thead>
@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($cartItems['array'] as $item) { ?>
+                    <?php foreach ($cartItems as $item) { ?>
                         <tr>
                             <td class="relative">
                                 <input type="hidden" name="id[]" value="<?= $item['id'] ?>">
@@ -63,16 +63,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?= lang('back_to_shop') ?>
         </a>
         <a class="btn btn-black pull-right go-checkout" href="<?= LANG_URL . '/checkout' ?>">
-            <?= lang('checkout') ?> 
+            <?= lang('checkout') ?>
         </a>
         <div class="clearfix"></div>
     <?php } ?>
 </div>
 <?php
 if ($this->session->flashdata('deleted')) {
-    ?>
+?>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
         });
     </script>

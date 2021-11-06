@@ -1,11 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <link href="<?= base_url('assets/css/nice-select.css') ?>" rel="stylesheet">
 <div id="checkout-page">
     <div class="container">
         <div class="body">
-            <?php if ($cartItems['array'] != null) { ?>
+            <?php if ($cartItems != null) { ?>
                 <?= purchase_steps(1, 2) ?>
                 <div class="row">
                     <div class="col-sm-4">
@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         dasdasd
                         as
                     </div>
-                    <div class="col-sm-8"> 
+                    <div class="col-sm-8">
                         <form method="POST" id="goOrder">
                             <div>
                                 <span><?= lang('checkout') ?></span>
@@ -21,26 +21,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <img src="<?= base_url('template/imgs/delivery.png') ?>" alt="">
                             <?php
                             if ($this->session->flashdata('submit_error')) {
-                                ?>
+                            ?>
                                 <hr>
-                                <div class="alert alert-danger"><h4><span class="glyphicon glyphicon-alert"></span> <?= lang('finded_errors') ?></h4><?php
-                                    foreach ($this->session->flashdata('submit_error') as $error)
-                                        echo $error . '<br>';
-                                    ?>
+                                <div class="alert alert-danger">
+                                    <h4><span class="glyphicon glyphicon-alert"></span> <?= lang('finded_errors') ?></h4><?php
+                                                                                                                            foreach ($this->session->flashdata('submit_error') as $error)
+                                                                                                                                echo $error . '<br>';
+                                                                                                                            ?>
                                 </div>
                                 <hr>
-                                <?php
+                            <?php
                             }
                             ?>
-                            <div class="row"  style="display:none;">
+                            <div class="row" style="display:none;">
                                 <div class="col-xs-12">
                                     <span class="top-header"><?= lang('choose_payment') ?>:</span>
                                     <select class="" data-style="btn-blue" name="payment_type">
                                         <?php if ($cashondelivery_visibility == 1) { ?>
                                             <option value="cashOnDelivery" checked="checked"><?= lang('cash_on_delivery') ?> </option>
-                                        <?php } if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
+                                        <?php }
+                                        if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
                                             <option value="PayPal"><?= lang('paypal') ?> </option>
-                                        <?php } if ($bank_account['iban'] != null) { ?>
+                                        <?php }
+                                        if ($bank_account['iban'] != null) { ?>
                                             <option value="Bank"><?= lang('bank_payment') ?> </option>
                                         <?php } ?>
                                     </select>
@@ -99,7 +102,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($cartItems['array'] as $item) { ?>
+                                        <?php foreach ($cartItems as $item) { ?>
                                             <tr>
                                                 <td class="relative">
                                                     <input type="hidden" name="id[]" value="<?= $item['id'] ?>">
@@ -140,23 +143,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </form>
                         <div>
                             <a href="<?= LANG_URL ?>" class="btn btn-info go-shop">
-                                <i class="fa fa-angle-left" aria-hidden="true"></i> 
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
                                 <?= lang('back_to_shop') ?>
                             </a>
                             <a href="javascript:void(0);" class="btn btn-info go-order" onclick="document.getElementById('goOrder').submit();">
-                                <?= lang('custom_order') ?> 
+                                <?= lang('custom_order') ?>
                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
                             </a>
                             <div class="visible-xs bottom-30"></div>
                             <div class="clearfix"></div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-                <?php
+            <?php
             } else {
-                ?>
+            ?>
                 <div class="alert alert-info"><?= lang('no_products_in_cart') ?></div>
-                <?php
+            <?php
             }
             ?>
         </div>
@@ -164,25 +167,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <?php
 if ($this->session->flashdata('deleted')) {
-    ?>
-<script>
-$(document).ready(function () {
-    ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
-});
-</script>
-    <?php
+?>
+    <script>
+        $(document).ready(function() {
+            ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
+        });
+    </script>
+<?php
 }
 if ($codeDiscounts == 1 && isset($_POST['discountCode'])) {
-    ?>
-<script>
-$(document).ready(function () {
-    checkDiscountCode();
-});
-</script>
+?>
+    <script>
+        $(document).ready(function() {
+            checkDiscountCode();
+        });
+    </script>
 <?php } ?>
 <script src="<?= base_url('assets/js/jquery.nice-select.min.js') ?>"></script>
 <script>
-$(document).ready(function () {
-    $('select').niceSelect();
-});
+    $(document).ready(function() {
+        $('select').niceSelect();
+    });
 </script>

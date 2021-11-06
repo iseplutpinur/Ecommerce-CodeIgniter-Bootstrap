@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <link rel="stylesheet" href="<?= base_url('assets/bootstrap-select-1.12.1/bootstrap-select.min.css') ?>">
 <div class="inner-nav">
@@ -9,8 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <div class="container" id="checkout-page">
     <?php
-    if ($cartItems['array'] != null) {
-        ?> 
+    if ($cartItems != null) {
+    ?>
         <form method="POST" id="goOrder">
             <div class="row">
                 <div class="col-sm-6 left-side">
@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <?php
                     if ($this->session->flashdata('submit_error')) {
-                        ?>
+                    ?>
                         <hr>
                         <div class="alert alert-danger">
                             <h4><span class="glyphicon glyphicon-alert"></span> <?= lang('finded_errors') ?></h4>
@@ -31,16 +31,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             ?>
                         </div>
                         <hr>
-                        <?php
+                    <?php
                     }
                     ?>
                     <div class="payment-type-box">
                         <select class="selectpicker payment-type" data-style="btn-green" name="payment_type">
                             <?php if ($cashondelivery_visibility == 1) { ?>
                                 <option value="cashOnDelivery"><?= lang('cash_on_delivery') ?> </option>
-                            <?php } if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
+                            <?php }
+                            if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
                                 <option value="PayPal"><?= lang('paypal') ?> </option>
-                            <?php } if ($bank_account['iban'] != null) { ?>
+                            <?php }
+                            if ($bank_account['iban'] != null) { ?>
                                 <option value="Bank"><?= lang('bank_payment') ?> </option>
                             <?php } ?>
                         </select>
@@ -89,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php } ?>
                     <div>
                         <a href="javascript:void(0);" class="btn go-order" onclick="document.getElementById('goOrder').submit();" class="pull-left">
-                            <?= lang('custom_order') ?> 
+                            <?= lang('custom_order') ?>
                         </a>
                         <div class="clearfix"></div>
                     </div>
@@ -108,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($cartItems['array'] as $item) { ?>
+                                <?php foreach ($cartItems as $item) { ?>
                                     <tr>
                                         <td class="relative">
                                             <input type="hidden" name="id[]" value="<?= $item['id'] ?>">
@@ -149,21 +151,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
         </form>
-    </div>
+</div>
 <?php } else { ?>
     <div class="alert alert-info"><?= lang('no_products_in_cart') ?></div>
-    <?php
-}
-if ($this->session->flashdata('deleted')) {
-    ?>
+<?php
+    }
+    if ($this->session->flashdata('deleted')) {
+?>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
         });
     </script>
-<?php } if ($codeDiscounts == 1 && isset($_POST['discountCode'])) { ?>
+<?php }
+    if ($codeDiscounts == 1 && isset($_POST['discountCode'])) { ?>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             checkDiscountCode();
         });
     </script>

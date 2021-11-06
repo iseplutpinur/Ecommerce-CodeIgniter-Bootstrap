@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <div class="container">
     <div class="body">
@@ -8,8 +8,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         if ($paypal_sandbox == 1) {
             $sandbox = '.sandbox.';
         }
-        if (!empty($cartItems['array'])) {
-            ?>
+        if (!empty($cartItems)) {
+        ?>
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
                     <img src="<?= base_url('template/imgs/paypal.png') ?>" class="img-responsive paypal-image">
@@ -25,16 +25,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 if ($_SESSION['discountAmount'] == '' || $_SESSION['discountAmount'] == 0) {
                     $discount = false;
                 } else {
-                    $discount = $_SESSION['discountAmount'] / count($cartItems['array']); // discount for each item
+                    $discount = $_SESSION['discountAmount'] / count($cartItems); // discount for each item
                 }
                 $i = 1;
-                foreach ($cartItems['array'] as $item) {
-                    ?>
+                foreach ($cartItems as $item) {
+                ?>
                     <input type="hidden" name="item_name_<?= $i ?>" value="<?= $item['title'] ?>">
                     <input type="hidden" name="amount_<?= $i ?>" value="<?= CURRENCY_KEY ?>">
                     <input type="hidden" name="discount_amount_<?= $i ?>" value="<?= $discount !== false ? $discount : 0 ?>">
                     <input type="hidden" name="quantity_<?= $i ?>" value="<?= $item['num_added'] ?>">
-                    <?php
+                <?php
                     $i++;
                 }
                 ?>
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a href="<?= base_url('checkout/paypal_cancel') ?>" class="btn btn-lg btn-danger btm-10"><?= lang('cancel_payment') ?></a>
                 <button type="submit" class="btn btn-lg btn-success btm-10"><?= lang('go_to_paypal') ?> <i class="fa fa-cc-paypal" aria-hidden="true"></i></button>
             </form>
-            <?php
+        <?php
         } else {
             redirect(base_url());
         }

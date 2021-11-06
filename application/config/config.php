@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
   |--------------------------------------------------------------------------
@@ -24,7 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | a PHP script and you can easily do that on your own.
   |
  */
-$config['base_url'] = defined('BASE_URL')?BASE_URL:'';
+// $config['base_url'] = defined('BASE_URL')?BASE_URL:'';
+$config['base_url'] = 'http://localhost:8080/aplikasi/online/Ecommerce-CodeIgniter-Bootstrap/';
 
 /*
   |--------------------------------------------------------------------------
@@ -95,10 +96,10 @@ $config['admin_history'] = false;
   | hepler for help.. :)
   |
  */
-$config['language'] = 'english';
-$config['language_abbr'] = 'en';
-$config['currency'] = '€';
-$config['currencyKey'] = 'EUR';
+$config['language'] = 'indonesian';
+$config['language_abbr'] = 'id';
+$config['currency'] = 'RP';
+$config['currencyKey'] = 'IDR';
 
 /*
   |--------------------------------------------------------------------------
